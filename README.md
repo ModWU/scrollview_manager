@@ -2,15 +2,13 @@
 
 It mainly manages the viewable state of the ScrollView.
 
-## Getting Started
+By using scrollview_manager, you get:
 
-This project is a starting point for a Flutter application.
+- Easily access children in viewport.
+- Quickly get the index for the first, last, and center position in the viewport.
+- You'll get better performance.
+- Additional interfaces for retrieving ratios are provided.
 
-A few resources to get you started if this is your first Flutter project:
+# Showcases
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Example1](https://github.com/ModWU/scrollview_manager/raw/main/scrollview_manager/example/assets/demo.gif)
