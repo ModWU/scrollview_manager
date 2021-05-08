@@ -1,6 +1,6 @@
 name: scrollview_manager
 description: It mainly manages the viewable state of the ScrollView.
-homepage: https://github.com/ModWU/scrollview_manager/tree/main/scrollview_manager
+homepage: https://github.com/ModWU/scrollview_manager
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
