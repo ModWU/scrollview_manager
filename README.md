@@ -12,3 +12,5 @@ By using scrollview_manager, you get:
 # Showcases
 
 ![Example1](https://raw.githubusercontent.com/ModWU/scrollview_manager/main/example/assets/demo.gif)
+
+![Example1](https://raw.githubusercontent.com/ModWU/scrollview_manager/main/example/assets/demo2.gif)

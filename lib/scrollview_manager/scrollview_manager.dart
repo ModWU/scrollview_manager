@@ -143,7 +143,7 @@ class ScrollViewManager with _SizeManager, _VisibleManager {
   Widget buildChild({required int index, required Widget child}) =>
       _buildChild(index: index, child: child);
 
-  void _jumpToIndex(int index) => _jumpToIndex(index);
+  //void _jumpToIndex(int index) => _jumpToIndex(index);
 
   void jumpTo(double position) => _jumpTo(position);
 
@@ -231,12 +231,11 @@ mixin _VisibleManager on _SizeManager {
             _DisposeSizeWidget(_createChildKey(index), child, this, index));
   }
 
-  //待实现
-  void _jumpToIndex(int index) {
-    /*assert(_scrollController is FixedExtentScrollController, "You need to create a FixedExtentScrollController for the ScrollView");
+  /*void _jumpToIndex(int index) {
+    *//*assert(_scrollController is FixedExtentScrollController, "You need to create a FixedExtentScrollController for the ScrollView");
     final FixedExtentScrollController controller = _scrollController as FixedExtentScrollController;
-    controller.jumpToItem(index);*/
-  }
+    controller.jumpToItem(index);*//*
+  }*/
 
   void _jumpTo(double position) {
     _scrollController!.jumpTo(position);
@@ -591,12 +590,11 @@ mixin _VisibleManager on _SizeManager {
         (_lastVisibleIndex == null || !_isValidIndex(_lastVisibleIndex!));
   }
 
-  //viewportDimension指的是ListView的高度范围(即使边界不可见,viewportDimension也不会改变)
   void _updateScrollData(ScrollMetrics metrics) {
     assert(metrics.hasViewportDimension);
     //final extentBefore = metrics.extentBefore;
     //final extendAfter = metrics.extentAfter;
-    final maxScrollExtent = metrics.maxScrollExtent;
+    //final maxScrollExtent = metrics.maxScrollExtent;
     final pixels = metrics.pixels;
     final viewportDimension = metrics.viewportDimension;
 
