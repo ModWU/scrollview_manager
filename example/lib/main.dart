@@ -23,10 +23,8 @@ class _SimpleScrollViewDemoState extends State<SimpleScrollViewDemo> {
   ScrollViewManager _scrollViewManager = ScrollViewManager();
 
   ScrollController _controller = ScrollController();
-  //FixedExtentScrollController _controller = FixedExtentScrollController();
   @override
   void dispose() {
-    //_controller.dispose();
     _controller.dispose();
     _scrollViewManager.dispose();
     super.dispose();
@@ -117,6 +115,36 @@ class _SimpleScrollViewDemoState extends State<SimpleScrollViewDemo> {
       ),
     );
   }
+
+  /*final List<int> _dataList = List.generate(1000, (index) => index);
+
+  Widget _buildListView2() {
+    return Container(
+      color: Colors.black12,
+      height: _height,
+      width: double.infinity,
+      child: _scrollViewManager.buildScrollView(
+        child: ListView(
+          scrollDirection: _axis,
+          controller: _controller,
+          children: _dataList.map((index) {
+            return _scrollViewManager.buildChild(
+              index: index,
+              child: Container(
+                color: Colors.primaries[index % Colors.primaries.length],
+                height: _axis == Axis.vertical ? (_random.nextDouble() * 80 + 20) : null,
+                width: _axis == Axis.horizontal ? (_random.nextDouble() * 80 + 20) : null,
+                alignment: Alignment.center,
+                child: Text("$index"),
+              ),
+            );
+          }).toList(),
+        ),
+        onUpdate: _updateIndex,
+        onScrollUpdate: _updateIndex,
+      ),
+    );
+  }*/
 
   void _updateIndex(IScrollDataInterface scrollDataInterface) {
     if (!scrollDataInterface.hasVisibleChild) return;

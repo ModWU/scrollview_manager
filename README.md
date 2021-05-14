@@ -13,4 +13,6 @@ By using scrollview_manager, you get:
 
 ![Example1](https://raw.githubusercontent.com/ModWU/scrollview_manager/main/example/assets/demo.gif)
 
+# Showcases2
+
 ![Example1](https://raw.githubusercontent.com/ModWU/scrollview_manager/main/example/assets/demo2.gif)

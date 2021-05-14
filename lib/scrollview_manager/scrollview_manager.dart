@@ -183,7 +183,6 @@ mixin _VisibleManager on _SizeManager {
       OnScrollStart? onScrollStart,
       OnScrollUpdate? onScrollUpdate,
       OnScrollEnd? onScrollEnd}) {
-    print("buildScrollView => ${child.runtimeType}");
     assert(child.controller != null,
         "You have to set the controller with ${child.runtimeType}.");
     _clearData();
@@ -232,9 +231,9 @@ mixin _VisibleManager on _SizeManager {
   }
 
   /*void _jumpToIndex(int index) {
-    *//*assert(_scrollController is FixedExtentScrollController, "You need to create a FixedExtentScrollController for the ScrollView");
+    */ /*assert(_scrollController is FixedExtentScrollController, "You need to create a FixedExtentScrollController for the ScrollView");
     final FixedExtentScrollController controller = _scrollController as FixedExtentScrollController;
-    controller.jumpToItem(index);*//*
+    controller.jumpToItem(index);*/ /*
   }*/
 
   void _jumpTo(double position) {
@@ -289,7 +288,6 @@ mixin _VisibleManager on _SizeManager {
     return _computeSize(position) != _getComputedSize(position);
   }
 
-  //在每次构建完成后计算，有可能存在刚构建完成马上销毁的情况
   void _markUpdateAfterBuild(int index) {
     _minBuildIndex ??= index;
     _maxBuildIndex ??= index;
@@ -310,9 +308,6 @@ mixin _VisibleManager on _SizeManager {
 
       int minBuildIndex = _minBuildIndex!;
       final int maxBuildIndex = _maxBuildIndex!;
-
-      print(
-          "_markUpdateAfterBuild => minBuildIndex: $minBuildIndex, maxBuildIndex: $maxBuildIndex");
 
       bool isAlign = false;
 
@@ -340,8 +335,6 @@ mixin _VisibleManager on _SizeManager {
         }
       }
 
-      //确保每次都更新
-      //需要重新计算位置
       _initVisibleIndex(_scrollMetrics!, startSearchIndex: startSearchIndex!);
       _update(_scrollMetrics!, sync: true);
 
@@ -364,7 +357,7 @@ mixin _VisibleManager on _SizeManager {
         bestNearPosition = nearPosition;
         return true;
       }
-      //有一个判断失败马上跳出循环
+
       return false;
     };
   }
@@ -375,17 +368,14 @@ mixin _VisibleManager on _SizeManager {
     final startPosition = metrics.pixels;
     final endPosition = metrics.pixels + metrics.viewportDimension;
 
-    //先判断边界
-    //取第一个
     final firstComputedSize = _sizes![_sizes!.firstKey()];
     if (firstComputedSize == null || firstComputedSize.position >= endPosition)
-      return false; //这时候看不到任何视图
+      return false;
 
     final lastComputedSize = _sizes![_sizes!.lastKey()];
 
     if (lastComputedSize == null ||
-        lastComputedSize.endPosition <= startPosition)
-      return false; //这时候看不到任何视图
+        lastComputedSize.endPosition <= startPosition) return false;
     return true;
   }
 
@@ -405,10 +395,8 @@ mixin _VisibleManager on _SizeManager {
     final startBaselinePosition = metrics.pixels;
     final endBaselinePosition = metrics.pixels + metrics.viewportDimension;
 
-    //没有销毁肯定不小于0
     assert(startSearchIndex >= 0);
     if (firstVisible) {
-      //从下往上搜索
       final minIndex = _getMinIndex()!;
       do {
         final searchComputedSize = _getComputedSize(startSearchIndex)!;
@@ -422,7 +410,6 @@ mixin _VisibleManager on _SizeManager {
       return _findEdgeVisibleIndex(metrics,
           firstVisible: true, lastVisible: false);
     } else {
-      //从上往下搜索
       int maxIndex = _getMaxIndex()!;
       do {
         final searchComputedSize = _getComputedSize(startSearchIndex)!;
@@ -445,7 +432,6 @@ mixin _VisibleManager on _SizeManager {
     final startBaselinePosition = metrics.pixels;
     final endBaselinePosition = metrics.pixels + metrics.viewportDimension;
 
-    //有子视图时说明第一个和最后一个都不为空
     final firstComputedSize = _sizes![_sizes!.firstKey()!]!;
     if (firstComputedSize.position >= startBaselinePosition) {
       if (firstVisible ||
@@ -530,7 +516,6 @@ mixin _VisibleManager on _SizeManager {
     bool otherConditionResult;
     do {
       otherConditionResult = otherCondition?.call(index) ?? true;
-      //当前下标没判断成功退出循环并取值老的下标
       if (!otherConditionResult) return oldIndex;
 
       final computedSize = _getComputedSize(index);
@@ -576,7 +561,6 @@ mixin _VisibleManager on _SizeManager {
         _nearCenterVisibleIndex = i;
       }
     } else {
-      //当第一个不可见时说明所有都不可见
       _lastVisibleIndex = -1;
       _nearCenterVisibleIndex = -1;
     }
@@ -632,7 +616,6 @@ mixin _VisibleManager on _SizeManager {
       _nearCenterVisibleIndex = _findVisibleIndex(
           _nearCenterVisibleIndex!, metrics, isForward,
           otherCondition: nearCenterIndexComputer);
-      //当正好边界为中心时,可能搜索不到,这里需要矫正中心位置
       if (_nearCenterVisibleIndex! < 0 &&
           _firstVisibleIndex! >= 0 &&
           _lastVisibleIndex! >= 0) {
@@ -644,7 +627,10 @@ mixin _VisibleManager on _SizeManager {
 
   bool _isVisibleAt(int index) {
     assert(index >= 0);
-    return !_isDisposed(index);
+    assert(_scrollMetrics != null);
+    if (_isDisposed(index) || !_hasVisibleChildren(_scrollMetrics!))
+      return false;
+    return index >= _firstVisibleIndex! && index <= _lastVisibleIndex!;
   }
 
   double _visibleRatioAt(int index) {
@@ -837,7 +823,6 @@ mixin _SizeManager {
     _sizes![index] = computedSize;
   }
 
-  //index不受限制
   bool _isDisposed(int index, [GlobalKey? key]) {
     if (index < 0) return true;
 
