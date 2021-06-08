@@ -2,6 +2,8 @@ name: scrollview_manager
 description: It mainly manages the viewable state of the ScrollView.
 homepage: https://github.com/ModWU/scrollview_manager
 
+# flutter packages pub publish --server=https://pub.dartlang.org
+
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
 # The following defines the version and build number for your application.
@@ -13,8 +15,8 @@ homepage: https://github.com/ModWU/scrollview_manager
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+# https://developer.apple.com/library/archive/documentation/yGeneral/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+2
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
